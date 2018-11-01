@@ -1,0 +1,13 @@
+{
+	"type": "DataloaderCollection",
+	"properties": {
+		"renditions": {
+			"name": "renditions",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "renditions",
+			"order": 0
+		}
+	}
+}

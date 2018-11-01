@@ -1,0 +1,53 @@
+{
+	"type": "DataloaderCollection",
+	"properties": {
+		"name": {
+			"name": "name",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "name",
+			"order": 0
+		},
+		"description": {
+			"name": "description",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "description",
+			"order": 1
+		},
+		"image": {
+			"name": "image",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "image",
+			"order": 2
+		},
+		"slug": {
+			"name": "slug",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "slug",
+			"order": 3
+		},
+		"inLanguage": {
+			"name": "inLanguage",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "inLanguage",
+			"order": 4
+		},
+		"translatedFrom": {
+			"name": "translatedFrom",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "translatedFrom",
+			"order": 5
+		}
+	}
+}

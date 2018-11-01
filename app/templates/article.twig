@@ -1,0 +1,605 @@
+{% extends "base.twig" %}
+
+{% block header_css %}
+{% if isVideo == true %}
+{{ assets({files: [
+    '@public/css/bootstrap.min.css',
+    '@public/css/font-awesome.min.css',
+    '@public/css/ionicons.min.css',
+    '@public/css/jquery-comments.css',
+    '@public/css/video-js.min.css',
+    '@public/css/ungheni.min.css',
+    '@public/css/skins/skin-blue.min.css',
+    ], name: 'app-article-video.css'})
+}}
+{% else %}
+{{ assets({files: [
+    '@public/css/bootstrap.min.css',
+    '@public/css/font-awesome.min.css',
+    '@public/css/ionicons.min.css',
+    '@public/css/jquery-comments.css',
+    '@public/css/ungheni.min.css',
+    '@public/css/skins/skin-blue.min.css',
+    ], name: 'app-article-novideo.css'})
+}}
+{% endif %}
+{% endblock %}
+
+{% block content_main %}
+		<div class="row">
+			<div class="col-md-8">
+				<div class="box box-article">
+					<div class="box-header with-border">
+						<h3 class="box-title">{{ article.headline|e }}</h3>
+						
+						<div class="article-metainfo">
+							<div class="user-block pull-left">
+								<img class="img-circle" width="128" height="128" src="{{ base_url() }}/img/user1-128x128.jpg" alt="User Image">
+								<span class="username"><a href="#">Agora.md</a></span>
+								<span class="description">Preluat de <a href="#">Ion (Nalyk) Calmîş</a> acum 7 minute</span>
+							</div>
+							<div class="article-share {% if isMobile == false %}pull-right{% else %}pull-left{% endif %}">
+								<div class="addthis_inline_share_toolbox_nu6t"></div>
+							</div>
+						</div>
+						
+						<div class="box-tools pull-right">
+							<span class="label label-primary">Label</span>
+						</div>
+						<!-- /.box-tools -->
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body">
+						{% if isVideo == true %}
+						{# Video article #}
+						<div class="article-featured-media">
+							<div class="article-video">
+								<div class="embed-responsive embed-responsive-16by9 player-container">
+									<video id="my-video" class="video-js vjs-default-skin vjs-fluid vjs-16-9 vjs-big-play-centered" controls preload="auto" width="640" height="264" poster="https://cdn.digita.media/unimedia/drepturile_copiilor.png" data-setup="{}">
+										<source src="https://cdn.digita.media/unimedia/drepturile_copiilor.mp4" type='video/mp4'>
+										<p class="vjs-no-js">
+											To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+										</p>
+									</video>
+								</div>
+	                        </div>
+						</div>
+						<div class="article-lead" style="margin-top: 15px;">
+							{#Hi, I am unique: {{ uniqid() }}.#}
+							{{ article.description|raw }}
+						</div>
+						{% else %}
+						{# Common article #}
+						<div class="article-lead">
+							{#Hi, I am unique: {{ uniqid() }}.#}
+							{{ article.description|raw }}
+						</div>
+						<div class="article-featured-media">
+							<img class="img-responsive" width="1280" height="703" src="{{article.associatedMedia.featuredImage.renditions["wide-large"].href}}" />
+							<div class="featured-media-source">
+								Sursa: {{article.associatedMedia.featuredImage.original.copyrightHolder.name}}
+							</div>
+						</div>
+						<div class="featured-media-description">
+							{{article.associatedMedia.featuredImage.original.descriptionText}}
+						</div>
+						{% endif %}						
+						
+						<div class="article-content">
+							<pre>
+								{{dump(article)}}
+							</pre>
+							{{ article.articleBody|raw }}
+							
+							{#
+							<div class="media">
+								<div class="media-image">
+									<img width="1280" height="720" class="img-responsive" src="https://picsum.photos/1280/720/?random" />
+									<div class="media-image-source">
+										Sursa: msmps.gov.md
+									</div>
+								</div>
+								<div class="media-image-description">
+									Ceremonia de deschidere a secţiei renovate
+								</div>
+							</div>
+							#}
+							
+						</div>
+						{#
+						<div class="article-related">
+							<div class="list-group">
+							  <a href="#" class="list-group-item">
+							    <h4 class="list-group-item-heading">List group item heading</h4>
+							    <p class="list-group-item-text">...</p>
+							  </a>
+							  <a href="#" class="list-group-item">
+							    <h4 class="list-group-item-heading">List group item heading</h4>
+							    <p class="list-group-item-text">...</p>
+							  </a>
+							  <a href="#" class="list-group-item">
+							    <h4 class="list-group-item-heading">List group item heading</h4>
+							    <p class="list-group-item-text">...</p>
+							  </a>
+							</div>
+						</div>
+						#}
+						
+					</div>
+					<!-- /.box-body -->
+					<div class="box-footer">
+						<div class="article-tags">
+							<div class="tags-block">
+								<div class="tags-icon pull-left">
+									<i class="fa fa-tags fa-fw" aria-hidden="true"></i>
+								</div>
+								<div class="tags-list">
+									<ul class="list-inline">
+										<li><a href="#">proiecte</a></li>
+										<li><a href="#">sănătate</a></li>
+										<li><a href="#">renovări</a></li>
+										<li><a href="#">spitale</a></li>
+										<li><a href="#">pacienţi</a></li>
+										<li><a href="#">achiziții</a></li>
+									</ul>
+								</div>
+							</div>
+							<div class="tags-block">
+								<div class="tags-icon pull-left">
+									<i class="fa fa-building fa-fw" aria-hidden="true"></i>
+								</div>
+								<div class="tags-list">
+									<ul class="list-inline">
+										<li><a href="#">Spitalul Raional Ungheni</a></li>
+										<li><a href="#">Consiliului Raional Ungheni</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- box-footer -->
+				</div>
+				<!-- /.box -->
+			</div>
+			<div class="col-md-4" id="article-sidebar">
+				<div class="theiaStickySidebar">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="ad-box{% if isMobile == true %} center{% endif %}">
+								<!-- Ungheni Today: Article sidebar - top - 300x250 -->
+								<ins class="adsbygoogle"
+								     style="display:inline-block;width:300px;height:250px"
+								     data-ad-client="ca-pub-8964186525527653"
+								     data-ad-slot="1367902661"></ins>
+								<script>
+								(adsbygoogle = window.adsbygoogle || []).push({});
+								</script>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12" id="article-sidebar-lastnews">
+							<div class="box box-primary">
+							  <div class="box-header with-border">
+							    <h3 class="box-title">Ultimele știri</h3>
+							    <div class="box-tools pull-right">
+							      <!-- Buttons, labels, and many other things can be placed here! -->
+							      <!-- Here is a label for example -->
+							      <span class="label label-primary">Label</span>
+							    </div>
+							    <!-- /.box-tools -->
+							  </div>
+							  <!-- /.box-header -->
+							  <div class="box-body">
+							    <div class="article">
+							    	<div class="article-title">
+							    		<a href="#">
+							    			Isprava unui moldovean care a încercat să scoată din țară peste 9.000 de ţigarete nedeclarate
+										</a>
+							    	</div>
+							    	<div class="article-metainfo">
+							    		<ul class="list-inline">
+											<li><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i> acum 7 minute</li>
+										</ul>
+							    	</div>
+							    </div>
+							    <div class="article">
+							    	<div class="article-title">
+							    		<a href="#">
+							    			Protest cu vaci la Ungheni. Motivul pentru care mai mulţi fermieri şi-au adus animalele domestice în faţa unui bar care
+										</a>
+							    	</div>
+							    	<div class="article-metainfo">
+							    		<ul class="list-inline">
+											<li><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i> acum 7 minute</li>
+										</ul>
+							    	</div>
+							    </div>
+							    <div class="article">
+							    	<div class="article-title">
+							    		<a href="#">
+							    			Spitalul raional Ungheni, dotat cu echipament medical modern
+										</a>
+							    	</div>
+							    	<div class="article-metainfo">
+							    		<ul class="list-inline">
+											<li><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i> acum 7 minute</li>
+										</ul>
+							    	</div>
+							    </div>
+							    <div class="article">
+							    	<div class="article-title">
+							    		<a href="#">
+							    			UE va oferi cinci milioane de euro pentru reabilitarea şi extinderea sistemelor de aprovizionare cu apă din oraşul Ungheni
+										</a>
+							    	</div>
+							    	<div class="article-metainfo">
+							    		<ul class="list-inline">
+											<li><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i> acum 7 minute</li>
+										</ul>
+							    	</div>
+							    </div>
+							    <div class="article">
+							    	<div class="article-title">
+							    		<a href="#">
+							    			Localnicii din Sculeni au rămas fără apă, din cauza că unii irigă terenuri cu apă potabilă
+										</a>
+							    	</div>
+							    	<div class="article-metainfo">
+							    		<ul class="list-inline">
+											<li><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i> acum 7 minute</li>
+										</ul>
+							    	</div>
+							    </div>
+							  </div>
+							  <!-- /.box-body -->
+							  <div class="box-footer">
+							    The footer of the box
+							  </div>
+							  <!-- box-footer -->
+							</div>
+							<!-- /.box -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{# Video raw
+		<div class="row">
+			<div class="col-md-12{% if isMobile == true %} no-margin-padding{% endif %}">
+				<div class="box">
+					<div class="box-header with-border">
+				    	<h3 class="box-title">Video</h3>
+				    		<div class="box-tools pull-right">
+				      			<!-- Buttons, labels, and many other things can be placed here! -->
+				      			<!-- Here is a label for example -->
+				      			<span class="label label-primary">Label</span>
+				    		</div>
+				    		<!-- /.box-tools -->
+				  	</div>
+				  	<!-- /.box-header -->
+				  	<div class="box-body">
+				    	<div class="video-slider article-page">
+				    		<ul id="video-block-slider" class="row">
+								<li class="col-md-3">
+									<div class="article">
+										<div class="article-image">
+											<a href="javascript:void()">
+												<img width="420" height="236" class="img-responsive" src="https://picsum.photos/420/236/?random" />
+											</a>
+										</div>
+										<div class="article-metainfo">
+											<ul class="list-inline">
+												<li class="pull-left">05:32</li>
+												<li class="pull-right">acum 7 minute</li>
+											</ul>
+										</div>
+										<div class="article-title">
+											<a href="javascript:void()">
+												Titlu de video, uneori putin mai lung
+											</a>
+										</div>
+									</div>
+								</li>
+								<li class="col-md-3">
+									<div class="article">
+										<div class="article-image">
+											<img width="420" height="236" class="img-responsive" src="https://picsum.photos/420/236/?random" />
+										</div>
+										<div class="article-metainfo">
+											<ul class="list-inline">
+												<li class="pull-left">05:32</li>
+												<li class="pull-right">acum 15 minute</li>
+											</ul>
+										</div>
+										<div class="article-title">
+											<a href="javascript:void()">
+												Titlu de video
+											</a>
+										</div>
+									</div>
+								</li>
+								<li class="col-md-3">
+									<div class="article">
+										<div class="article-image">
+											<img width="420" height="236" class="img-responsive" src="https://picsum.photos/420/236/?random" />
+										</div>
+										<div class="article-metainfo">
+											<ul class="list-inline">
+												<li class="pull-left">05:32</li>
+												<li class="pull-right">acum 27 minute</li>
+											</ul>
+										</div>
+										<div class="article-title">
+											<a href="javascript:void()">
+												Titlu de video, uneori putin mai lung mai lung
+											</a>
+										</div>
+									</div>
+								</li>
+								<li class="col-md-3">
+									<div class="article">
+										<div class="article-image">
+											<img width="420" height="236" class="img-responsive" src="https://picsum.photos/420/236/?random" />
+										</div>
+										<div class="article-metainfo">
+											<ul class="list-inline">
+												<li class="pull-left">05:32</li>
+												<li class="pull-right">acum 45 minute</li>
+											</ul>
+										</div>
+										<div class="article-title">
+											<a href="javascript:void()">
+												Titlu de video, putin lung
+											</a>
+										</div>
+									</div>
+								</li>
+								<li class="col-md-3">
+									<div class="article">
+										<div class="article-image">
+											<img width="420" height="236" class="img-responsive" src="https://picsum.photos/420/236/?random" />
+										</div>
+										<div class="article-metainfo">
+											<ul class="list-inline">
+												<li class="pull-left">05:32</li>
+												<li class="pull-right">acum 1 oră</li>
+											</ul>
+										</div>
+									</div>
+								</li>
+								<li class="col-md-3">
+									<div class="article">
+										<div class="article-image">
+											<img width="420" height="236" class="img-responsive" src="https://picsum.photos/420/236/?random" />
+										</div>
+										<div class="article-metainfo">
+											<ul class="list-inline">
+												<li class="pull-left">05:32</li>
+												<li class="pull-right">acum 3 ore</li>
+											</ul>
+										</div>
+									</div>
+								</li>
+							</ul>
+				    	</div>
+				  	</div>
+				  	<!-- /.box-body -->
+				  	<div class="box-footer">
+				    	The footer of the box
+				  	</div>
+				  	<!-- box-footer -->
+				</div>
+				<!-- /.box -->
+			</div>
+		</div>
+		#}
+		<div class="row">
+			<div class="col-md-8">
+				<div class="box">
+					<div class="box-header with-border">
+				    	<h3 class="box-title">Comentarii</h3>
+				    		<div class="box-tools pull-right">
+				      			<!-- Buttons, labels, and many other things can be placed here! -->
+				      			<!-- Here is a label for example -->
+				      			<span class="label label-primary">Label</span>
+				    		</div>
+				    		<!-- /.box-tools -->
+				  	</div>
+				  	<!-- /.box-header -->
+				  	<div class="box-body">
+				    	<div id="comments-container">
+				    	</div>
+				  	</div>
+				  	<!-- /.box-body -->
+				  	<div class="box-footer">
+				    	The footer of the box
+				  	</div>
+				  	<!-- box-footer -->
+				</div>
+				<!-- /.box -->
+			</div>
+			<div class="col-md-4" id="article-companion-sidebar">
+				<div class="theiaStickySidebar">
+					<!-- PRODUCT LIST -->
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<h3 class="box-title">Ultimele anunțuri</h3>
+
+							<div class="box-tools pull-right">
+								<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+								<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+							</div>
+						</div>
+						<!-- /.box-header -->
+						<div class="box-body">
+							<ul class="products-list product-list-in-box">
+								
+								<li class="item">
+									<div class="product-img">
+										<img width="50" height="50" src="{{ base_url() }}/img/default-50x50.gif" alt="Product Image">
+									</div>
+									<div class="product-info">
+										<a href="javascript:void(0)" class="product-title">Samsung TV
+											<span class="label label-warning pull-right">$1800</span></a>
+										<span class="product-description">
+											Samsung 32" 1080p 60Hz LED Smart HDTV.
+										</span>
+									</div>
+								</li>
+								<!-- /.item -->
+
+								<li class="item">
+									<div class="product-img">
+										<img width="50" height="50" src="{{ base_url() }}/img/default-50x50.gif" alt="Product Image">
+									</div>
+									<div class="product-info">
+										<a href="javascript:void(0)" class="product-title">Samsung TV
+											<span class="label label-warning pull-right">$1800</span></a>
+										<span class="product-description">
+											Samsung 32" 1080p 60Hz LED Smart HDTV.
+										</span>
+									</div>
+								</li>
+								<!-- /.item -->
+
+								<li class="item">
+									<div class="product-img">
+										<img width="50" height="50" src="{{ base_url() }}/img/default-50x50.gif" alt="Product Image">
+									</div>
+									<div class="product-info">
+										<a href="javascript:void(0)" class="product-title">Samsung TV
+											<span class="label label-warning pull-right">$1800</span></a>
+										<span class="product-description">
+											Samsung 32" 1080p 60Hz LED Smart HDTV.
+										</span>
+									</div>
+								</li>
+								<!-- /.item -->
+
+								<li class="item">
+									<div class="product-img">
+										<img width="50" height="50" src="{{ base_url() }}/img/default-50x50.gif" alt="Product Image">
+									</div>
+									<div class="product-info">
+										<a href="javascript:void(0)" class="product-title">Samsung TV
+											<span class="label label-warning pull-right">$1800</span></a>
+										<span class="product-description">
+											Samsung 32" 1080p 60Hz LED Smart HDTV.
+										</span>
+									</div>
+								</li>
+								<!-- /.item -->
+
+								<li class="item">
+									<div class="product-img">
+										<img width="50" height="50" src="{{ base_url() }}/img/default-50x50.gif" alt="Product Image">
+									</div>
+									<div class="product-info">
+										<a href="javascript:void(0)" class="product-title">Samsung TV
+											<span class="label label-warning pull-right">$1800</span></a>
+										<span class="product-description">
+											Samsung 32" 1080p 60Hz LED Smart HDTV.
+										</span>
+									</div>
+								</li>
+								<!-- /.item -->
+					
+							</ul>
+						</div>
+						<!-- /.box-body -->
+						<div class="box-footer text-center">
+							<a href="javascript:void(0)" class="uppercase">View All Products</a>
+						</div>
+						<!-- /.box-footer -->
+					</div>
+					<!-- /.box -->
+				</div>
+			</div>
+		</div>
+{% endblock %}
+
+{% block footer_js %}
+{% if isVideo == true %}
+{{ assets({files: [
+    '@public/js/jquery.min.js',
+    '@public/js/bootstrap.min.js',
+    '@public/js/ungheni.min.js',
+    '@public/js/jquery-comments.min.js',
+    '@public/js/video.min.js',
+    ], name: 'app-article-video.js'})
+}}
+{% else %}
+{{ assets({files: [
+    '@public/js/jquery.min.js',
+    '@public/js/bootstrap.min.js',
+    '@public/js/ungheni.min.js',
+    '@public/js/jquery-comments.min.js',
+    ], name: 'app-article-novideo.js'})
+}}
+{% endif %}
+{% endblock %}
+
+{% block prebody_js %}
+<script type='text/javascript'>
+	jQuery(document).ready(function($) {
+
+		jQuery('#article-sidebar').theiaStickySidebar({
+			additionalMarginTop: 65
+    	});
+
+    	jQuery('#article-companion-sidebar').theiaStickySidebar({
+			additionalMarginTop: 15
+    	});
+
+    	jQuery("#video-block-slider").lightSlider({
+    		item: 4,
+    		pager: false,
+    		easing: 'cubic-bezier(0.25, 0, 0.25, 1)',
+			prevHtml: '<i class="fa fa-angle-left" aria-hidden="true"></i>',
+			nextHtml: '<i class="fa fa-angle-right" aria-hidden="true"></i>',
+    		responsive : [
+				{
+					breakpoint:800,
+					settings: {
+						item:3
+					}
+				},
+				{
+					breakpoint:480,
+					settings: {
+						item:2
+					}
+				}
+			],
+			onSliderLoad: function (el) {
+				console.log($("#video-block-slider").height());
+				console.log($("#video-block-slider img").height());
+				//.video-slider .lSAction .lSPrev i
+        		//el.addClass('classAddedBeforeSliderLoad');
+    		}
+    	}); 
+
+    	jQuery('#comments-container').comments({
+		    profilePictureURL: 'https://ungheni.today/img/user2-160x160.jpg',
+		    postCommentOnEnter: true,
+		    roundProfilePictures: true,
+		    getComments: function(success, error) {
+		        var commentsArray = [{
+		            id: 1,
+		            created: '2015-10-01',
+		            content: 'Lorem ipsum dolort sit amet',
+		            fullname: 'Simon Powell',
+		            upvote_count: 2,
+		            user_has_upvoted: false
+		        }];
+		        success(commentsArray);
+		    }
+		});
+	});
+</script>
+
+<script async type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-53e0fb6a3935c189"></script>
+<script async type="text/javascript" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+{% endblock %}

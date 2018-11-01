@@ -1,0 +1,237 @@
+{
+	"type": "Collection",
+	"properties": {
+		"hash": {
+			"name": "hash",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "hash",
+			"order": 0
+		},
+		"creator": {
+			"name": "creator",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "creator",
+			"order": 1
+		},
+		"dateCreated": {
+			"name": "dateCreated",
+			"type": "date",
+			"typeLabel": "date",
+			"required": false,
+			"id": "dateCreated",
+			"order": 2
+		},
+		"dateModified": {
+			"name": "dateModified",
+			"type": "date",
+			"typeLabel": "date",
+			"required": false,
+			"id": "dateModified",
+			"order": 3
+		},
+		"datePublished": {
+			"name": "datePublished",
+			"type": "date",
+			"typeLabel": "date",
+			"required": false,
+			"id": "datePublished",
+			"order": 4
+		},
+		"name": {
+			"name": "name",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "name",
+			"order": 5
+		},
+		"description": {
+			"name": "description",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "description",
+			"order": 6
+		},
+		"type": {
+			"name": "type",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "type",
+			"order": 7
+		},
+		"encodingFormat": {
+			"name": "encodingFormat",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "encodingFormat",
+			"order": 8
+		},
+		"contentUrl": {
+			"name": "contentUrl",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "contentUrl",
+			"order": 9
+		},
+		"associatedItems": {
+			"name": "associatedItems",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "associatedItems",
+			"order": 10
+		},
+		"contentSize": {
+			"name": "contentSize",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "contentSize",
+			"order": 11
+		},
+		"duration": {
+			"name": "duration",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "duration",
+			"order": 12
+		},
+		"height": {
+			"name": "height",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "height",
+			"order": 13
+		},
+		"width": {
+			"name": "width",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "width",
+			"order": 14
+		},
+		"about": {
+			"name": "about",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "about",
+			"order": 15
+		},
+		"headline": {
+			"name": "headline",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "headline",
+			"order": 16
+		},
+		"alternativeHeadline": {
+			"name": "alternativeHeadline",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "alternativeHeadline",
+			"order": 17
+		},
+		"associatedMedia": {
+			"name": "associatedMedia",
+			"type": "object",
+			"typeLabel": "object",
+			"required": false,
+			"id": "associatedMedia",
+			"order": 18
+		},
+		"authors": {
+			"name": "authors",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "authors",
+			"order": 19
+		},
+		"contributors": {
+			"name": "contributors",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "contributors",
+			"order": 20
+		},
+		"copyrightHolder": {
+			"name": "copyrightHolder",
+			"type": "object",
+			"typeLabel": "object",
+			"required": false,
+			"id": "copyrightHolder",
+			"order": 21
+		},
+		"copyrightYear": {
+			"name": "copyrightYear",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "copyrightYear",
+			"order": 22
+		},
+		"inLanguage": {
+			"name": "inLanguage",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "inLanguage",
+			"order": 23
+		},
+		"translators": {
+			"name": "translators",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "translators",
+			"order": 24
+		},
+		"translatedFrom": {
+			"name": "translatedFrom",
+			"type": "object",
+			"typeLabel": "object",
+			"required": false,
+			"id": "translatedFrom",
+			"order": 25
+		},
+		"slug": {
+			"name": "slug",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "slug",
+			"order": 26
+		},
+		"status": {
+			"name": "status",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "status",
+			"order": 27
+		},
+		"displayCount": {
+			"name": "displayCount",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "displayCount",
+			"order": 28
+		}
+	}
+}

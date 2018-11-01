@@ -1,0 +1,237 @@
+{
+	"type": "Collection",
+	"properties": {
+		"creator": {
+			"name": "creator",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "creator",
+			"order": 0
+		},
+		"dateCreated": {
+			"name": "dateCreated",
+			"type": "date",
+			"typeLabel": "date",
+			"required": false,
+			"id": "dateCreated",
+			"order": 1
+		},
+		"dateModified": {
+			"name": "dateModified",
+			"type": "date",
+			"typeLabel": "date",
+			"required": false,
+			"id": "dateModified",
+			"order": 2
+		},
+		"datePublished": {
+			"name": "datePublished",
+			"type": "date",
+			"typeLabel": "date",
+			"required": false,
+			"id": "datePublished",
+			"order": 3
+		},
+		"name": {
+			"name": "name",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "name",
+			"order": 4
+		},
+		"description": {
+			"name": "description",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "description",
+			"order": 5
+		},
+		"image": {
+			"name": "image",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "image",
+			"order": 6
+		},
+		"inLanguage": {
+			"name": "inLanguage",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "inLanguage",
+			"order": 7
+		},
+		"headline": {
+			"name": "headline",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "headline",
+			"order": 8
+		},
+		"alternativeHeadline": {
+			"name": "alternativeHeadline",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "alternativeHeadline",
+			"order": 9
+		},
+		"articleSection": {
+			"name": "articleSection",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "articleSection",
+			"order": 10
+		},
+		"articleBody": {
+			"name": "articleBody",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "articleBody",
+			"order": 11
+		},
+		"wordCount": {
+			"name": "wordCount",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "wordCount",
+			"order": 12
+		},
+		"genre": {
+			"name": "genre",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "genre",
+			"order": 13
+		},
+		"about": {
+			"name": "about",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "about",
+			"order": 14
+		},
+		"associatedMedia": {
+			"name": "associatedMedia",
+			"type": "object",
+			"typeLabel": "object",
+			"required": false,
+			"id": "associatedMedia",
+			"order": 15
+		},
+		"location": {
+			"name": "location",
+			"type": "object",
+			"typeLabel": "object",
+			"required": false,
+			"id": "location",
+			"order": 16
+		},
+		"author": {
+			"name": "author",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "author",
+			"order": 17
+		},
+		"publisher": {
+			"name": "publisher",
+			"type": "object",
+			"typeLabel": "object",
+			"required": false,
+			"id": "publisher",
+			"order": 18
+		},
+		"editor": {
+			"name": "editor",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "editor",
+			"order": 19
+		},
+		"sponsor": {
+			"name": "sponsor",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "sponsor",
+			"order": 20
+		},
+		"comment": {
+			"name": "comment",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "comment",
+			"order": 21
+		},
+		"commentCount": {
+			"name": "commentCount",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "commentCount",
+			"order": 22
+		},
+		"timeRequired": {
+			"name": "timeRequired",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "timeRequired",
+			"order": 23
+		},
+		"version": {
+			"name": "version",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "version",
+			"order": 24
+		},
+		"translator": {
+			"name": "translator",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "translator",
+			"order": 25
+		},
+		"translatedFrom": {
+			"name": "translatedFrom",
+			"type": "object",
+			"typeLabel": "object",
+			"required": false,
+			"id": "translatedFrom",
+			"order": 26
+		},
+		"displayCount": {
+			"name": "displayCount",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "displayCount",
+			"order": 27
+		},
+		"status": {
+			"name": "status",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "status",
+			"order": 28
+		}
+	}
+}

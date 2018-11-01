@@ -1,0 +1,37 @@
+{% extends "base.twig" %}
+
+{% block header_css %}
+{{ assets({files: [
+    '@public/css/bootstrap.min.css',
+    '@public/css/font-awesome.min.css',
+    '@public/css/ionicons.min.css',
+    '@public/css/jquery-comments.css',
+    '@public/css/video-js.min.css',
+    '@public/css/ungheni.min.css',
+    '@public/css/skins/skin-blue.min.css',
+    ], name: 'app-homepage.css'})
+}}
+{% endblock %}
+
+{% block content_header %}
+    <!-- Content Header (Page header) -->
+    {{ include('inc/header/header-content.twig') }}
+{% endblock %}
+
+{% block content_main %}
+      Home page
+      <pre>
+      	{{dump(debug)}}
+      </pre>
+{% endblock %}
+
+{% block footer_js %}
+{{ assets({files: [
+    '@public/js/jquery.min.js',
+    '@public/js/bootstrap.min.js',
+    '@public/js/ungheni.min.js',
+    '@public/js/jquery-comments.min.js',
+    '@public/js/video.min.js',
+    ], name: 'app-homepage.js'})
+}}
+{% endblock %}

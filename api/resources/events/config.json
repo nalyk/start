@@ -1,0 +1,221 @@
+{
+	"type": "Collection",
+	"properties": {
+		"creator": {
+			"name": "creator",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "creator",
+			"order": 0
+		},
+		"dateCreated": {
+			"name": "dateCreated",
+			"type": "date",
+			"typeLabel": "date",
+			"required": false,
+			"id": "dateCreated",
+			"order": 1
+		},
+		"dateModified": {
+			"name": "dateModified",
+			"type": "date",
+			"typeLabel": "date",
+			"required": false,
+			"id": "dateModified",
+			"order": 2
+		},
+		"datePublished": {
+			"name": "datePublished",
+			"type": "date",
+			"typeLabel": "date",
+			"required": false,
+			"id": "datePublished",
+			"order": 3
+		},
+		"name": {
+			"name": "name",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "name",
+			"order": 4
+		},
+		"description": {
+			"name": "description",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "description",
+			"order": 5
+		},
+		"image": {
+			"name": "image",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "image",
+			"order": 6
+		},
+		"inLanguage": {
+			"name": "inLanguage",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "inLanguage",
+			"order": 7
+		},
+		"headline": {
+			"name": "headline",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "headline",
+			"order": 8
+		},
+		"alternativeHeadline": {
+			"name": "alternativeHeadline",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "alternativeHeadline",
+			"order": 9
+		},
+		"eventSection": {
+			"name": "eventSection",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "eventSection",
+			"order": 10
+		},
+		"eventBody": {
+			"name": "eventBody",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "eventBody",
+			"order": 11
+		},
+		"startDate": {
+			"name": "startDate",
+			"type": "date",
+			"typeLabel": "date",
+			"required": false,
+			"id": "startDate",
+			"order": 12
+		},
+		"endDate": {
+			"name": "endDate",
+			"type": "date",
+			"typeLabel": "date",
+			"required": false,
+			"id": "endDate",
+			"order": 13
+		},
+		"about": {
+			"name": "about",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "about",
+			"order": 14
+		},
+		"associatedMedia": {
+			"name": "associatedMedia",
+			"type": "object",
+			"typeLabel": "object",
+			"required": false,
+			"id": "associatedMedia",
+			"order": 15
+		},
+		"organizer": {
+			"name": "organizer",
+			"type": "object",
+			"typeLabel": "object",
+			"required": false,
+			"id": "organizer",
+			"order": 16
+		},
+		"location": {
+			"name": "location",
+			"type": "object",
+			"typeLabel": "object",
+			"required": false,
+			"id": "location",
+			"order": 17
+		},
+		"funder": {
+			"name": "funder",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "funder",
+			"order": 18
+		},
+		"sponsor": {
+			"name": "sponsor",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "sponsor",
+			"order": 19
+		},
+		"attendee": {
+			"name": "attendee",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "attendee",
+			"order": 20
+		},
+		"comment": {
+			"name": "comment",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "comment",
+			"order": 21
+		},
+		"commentCount": {
+			"name": "commentCount",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "commentCount",
+			"order": 22
+		},
+		"translator": {
+			"name": "translator",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "translator",
+			"order": 23
+		},
+		"translatedFrom": {
+			"name": "translatedFrom",
+			"type": "object",
+			"typeLabel": "object",
+			"required": false,
+			"id": "translatedFrom",
+			"order": 24
+		},
+		"displayCount": {
+			"name": "displayCount",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "displayCount",
+			"order": 25
+		},
+		"status": {
+			"name": "status",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "status",
+			"order": 26
+		}
+	}
+}

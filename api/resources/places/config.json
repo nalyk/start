@@ -1,0 +1,221 @@
+{
+	"type": "Collection",
+	"properties": {
+		"creator": {
+			"name": "creator",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "creator",
+			"order": 0
+		},
+		"dateCreated": {
+			"name": "dateCreated",
+			"type": "date",
+			"typeLabel": "date",
+			"required": false,
+			"id": "dateCreated",
+			"order": 1
+		},
+		"dateModified": {
+			"name": "dateModified",
+			"type": "date",
+			"typeLabel": "date",
+			"required": false,
+			"id": "dateModified",
+			"order": 2
+		},
+		"datePublished": {
+			"name": "datePublished",
+			"type": "date",
+			"typeLabel": "date",
+			"required": false,
+			"id": "datePublished",
+			"order": 3
+		},
+		"name": {
+			"name": "name",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "name",
+			"order": 4
+		},
+		"description": {
+			"name": "description",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "description",
+			"order": 5
+		},
+		"image": {
+			"name": "image",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "image",
+			"order": 6
+		},
+		"headline": {
+			"name": "headline",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "headline",
+			"order": 7
+		},
+		"alternativeHeadline": {
+			"name": "alternativeHeadline",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "alternativeHeadline",
+			"order": 8
+		},
+		"inLanguage": {
+			"name": "inLanguage",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "inLanguage",
+			"order": 9
+		},
+		"placeBody": {
+			"name": "placeBody",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "placeBody",
+			"order": 10
+		},
+		"placeSection": {
+			"name": "placeSection",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "placeSection",
+			"order": 11
+		},
+		"logo": {
+			"name": "logo",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "logo",
+			"order": 12
+		},
+		"address": {
+			"name": "address",
+			"type": "object",
+			"typeLabel": "object",
+			"required": false,
+			"id": "address",
+			"order": 13
+		},
+		"telephone": {
+			"name": "telephone",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "telephone",
+			"order": 14
+		},
+		"containedInPlace": {
+			"name": "containedInPlace",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "containedInPlace",
+			"order": 15
+		},
+		"containsPlace": {
+			"name": "containsPlace",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "containsPlace",
+			"order": 16
+		},
+		"openingHours": {
+			"name": "openingHours",
+			"type": "object",
+			"typeLabel": "object",
+			"required": false,
+			"id": "openingHours",
+			"order": 17
+		},
+		"publicAccess": {
+			"name": "publicAccess",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "publicAccess",
+			"order": 18
+		},
+		"isAccessibleForFree": {
+			"name": "isAccessibleForFree",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "isAccessibleForFree",
+			"order": 19
+		},
+		"currenciesAccepted": {
+			"name": "currenciesAccepted",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "currenciesAccepted",
+			"order": 20
+		},
+		"paymentAccepted": {
+			"name": "paymentAccepted",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "paymentAccepted",
+			"order": 21
+		},
+		"priceRange": {
+			"name": "priceRange",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "priceRange",
+			"order": 22
+		},
+		"smokingAllowed": {
+			"name": "smokingAllowed",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "smokingAllowed",
+			"order": 23
+		},
+		"maximumAttendeeCapacity": {
+			"name": "maximumAttendeeCapacity",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "maximumAttendeeCapacity",
+			"order": 24
+		},
+		"event": {
+			"name": "event",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "event",
+			"order": 25
+		},
+		"review": {
+			"name": "review",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "review",
+			"order": 26
+		}
+	}
+}

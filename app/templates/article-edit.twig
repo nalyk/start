@@ -1,0 +1,741 @@
+{% extends "base.twig" %}
+
+{% block header_css %}
+
+{{ assets({files: [
+    '@public/css/bootstrap.min.css',
+    '@public/css/video-js.min.css',
+    '@public/css/font-awesome.min.css',
+    '@public/css/ionicons.min.css',
+    '@public/css/froala_editor.pkgd.min.css',
+    '@public/css/froala_style.min.css',
+    '@public/css/select2.min.css',
+    '@public/css/bootstrap-datepicker3.min.css',
+    '@public/css/timepicker.min.css',
+    '@public/css/jquery.dm-uploader.min.css',
+    '@public/css/ungheni.min.css',
+    '@public/css/skins/skin-blue.min.css',
+    ], name: 'app-article-add.css'})
+}}
+
+{% endblock %}
+
+{% block content_main %}
+		<div class="row">
+			<div class="col-md-8">
+				<div class="box">
+					<form role="form">
+						<div class="box-header with-border">
+							<h3 class="box-title">Editează articolul</h3>
+							
+							<div class="box-tools pull-right">
+								<div class="btn-group" role="group" aria-label="...">
+								  	<a class="btn btn-default btn-sm" id="saveArticle">
+										<i class="fa fa-floppy-o fa-fw"></i>{% if not isMobile %} Salvează{% endif %}
+									</a>
+									<a class="btn btn-default btn-sm" id="publishArticle" style="display: none;">
+										<i class="fa fa-globe fa-fw"></i>{% if not isMobile %} Publică{% endif %}
+									</a>
+									<a class="btn btn-default btn-sm" id="scheduleArticle" style="display: none;">
+										<i class="fa fa-calendar-check-o fa-fw"></i>{% if not isMobile %} {% if article.status == "scheduled" %}Re-{% endif %}Programează{% endif %}
+									</a>
+									<a class="btn btn-default btn-sm" id="unpublishArticle" style="display: none;">
+										<i class="fa fa-ban"></i>{% if not isMobile %} Anulează publicarea{% endif %}
+									</a>
+									<a class="btn btn-default btn-sm" id="cancelArticle">
+										<i class="fa fa-times-circle"></i>{% if not isMobile %} Închide{% endif %}
+									</a>
+								</div>
+							</div>
+							<!-- /.box-tools -->
+						</div>
+						<!-- /.box-header -->
+						<div class="box-body">
+							<div class="form-group">
+								<label for="addArticleHeadline">Titlu</label>
+								<input type="text" name="headline" class="form-control" id="addArticleHeadline" placeholder="Titlul" value="{{article.headline|e}}">
+							</div>
+							<div class="form-group">
+								<label for="addArticleAbstract">Lead</label>
+								<textarea class="form-control" name="description" id="addArticleAbstract" rows="3">
+									{{article.description|raw}}
+								</textarea>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="articleSection">Secţiune</label>
+										<select id="articleSection" name="articleSection" class="form-control select2" style="width: 100%;">
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="addArticleBody">Textul ştirii</label>
+								<textarea class="form-control" name="articleBody" id="addArticleBody" rows="3">
+									{{article.articleBody|raw}}
+								</textarea>
+							</div>
+						</div>
+						<!-- /.box-body -->
+						<div class="box-footer">
+							Footer
+						</div>
+						<!-- box-footer -->
+					</form>
+				</div>
+				<!-- /.box -->
+			</div>
+			<div class="col-md-4" id="article-sidebar">
+				<div class="theiaStickySidebar">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="box box-default collapsed-box">
+								<div class="box-header with-border">
+									<h3 class="box-title"><i class="fa fa-clock-o fa-fw"></i> Data publicării / Programare</h3>
+
+									<div class="box-tools pull-right">
+										<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+										</button>
+									</div>
+									<!-- /.box-tools -->
+								</div>
+								<!-- /.box-header -->
+								<div class="box-body">
+									<div class="row">
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label for="articleCreatedDate">Data:</label>
+
+												<div class="input-group date">
+													<div class="input-group-addon">
+														<i class="fa fa-calendar"></i>
+													</div>
+													<input type="text" name="articleCreatedDate" class="form-control pull-right" id="articleCreatedDate" value="{{ article.datePublished|date('Y-m-d', 'Europe/Chisinau') }}">
+												</div>
+												<!-- /.input group -->
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="bootstrap-timepicker">
+												<div class="form-group">
+													<label for="articleCreatedTime">Ora:</label>
+
+													<div class="input-group">
+														<input type="text" name="articleCreatedTime" class="form-control timepicker" id="articleCreatedTime" value="{{ article.datePublished|date('H:i', 'Europe/Chisinau') }}">
+														<div class="input-group-addon">
+															<i class="fa fa-clock-o"></i>
+														</div>
+													</div>
+													<!-- /.input group -->
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- /.box-body -->
+
+							</div>
+							<!-- /.box -->
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="nav-tabs-custom" id="featured_media_container">
+								<ul class="nav nav-tabs pull-right">
+									<li><a href="#tab_featured_video" data-toggle="tab"><i class="fa fa-video-camera fa-fw"></i> Video</a></li>
+									<li class="active"><a href="#tab_featured_image" data-toggle="tab"><i class="fa fa-camera fa-fw"></i> Imagine</a></li>
+									
+									<li class="pull-left header"><i class="fa fa-picture-o fa-fw"></i> Featured Media</li>
+								</ul>
+								<div class="tab-content">
+									<div class="tab-pane active" id="tab_featured_image">
+										<div id="featured_image_content">
+											<div id="articleFeaturedImageThumb">
+												<div class="featuredImageContainer" style="position: relative;">
+													<div style="position: absolute; top: 0; right: 0;">
+														<a id="featuredImageReset" href="#"><i class="fa fa-times fa-fw"></i></a>
+													</div>
+													<img id="articleFeaturedImageThumbUrl" src="{{article.associatedMedia.featuredImage.contentUrl}}" class="img-responsive">
+												</div>
+												<div class="form-group">
+													<label for="addImageDescription">Descriere</label>
+													<input type="text" name="featured_image_descriptionText" class="form-control" id="addImageDescription" placeholder="Descrierea pozei" value="{{article.associatedMedia.featuredImage.description}}">
+												</div>
+												<div class="form-group">
+													<label for="addImageCopyright">Copyright</label>
+													<input type="text" name="featured_image_copyrightHolder" class="form-control" id="addImageCopyright" placeholder="Copyright" value="{{article.associatedMedia.featuredImage.copyrightHolder.value}}">
+												</div>
+											</div>
+											<div id="articleFeaturedImage" class="well" style="text-align: center; display: none;">
+												<h4>Trageți și aruncați fișiere aici</h4>
+													<label class="btn btn-default btn-file">
+		    											<i class="fa fa-folder-open fa-fw"></i> Browse... <input type="file" name="featuredImage" style="display: none;">
+													</label>
+											</div>
+											<div id="articleFeaturedImagefromURL" style="display: none;">
+												<h3 class="centerword-line">
+													<span class="centerword-text">sau</span>
+												</h3>
+												<div class="input-group">
+											      <input type="text" name="featuredImagefromUrl" id="featuredImagefromUrl" class="form-control" placeholder="Adresa URL a imaginii">
+											      <span class="input-group-btn">
+											        <button class="btn btn-default" id="uploadImagefromURL" type="button"><i class="fa fa-upload fa-fw"></i> Încarcă</button>
+											      </span>
+											    </div>
+											</div>
+										</div>
+									</div>
+									<!-- /.tab-pane -->
+									<div class="tab-pane" id="tab_featured_video">
+										<div id="featured_video_content">
+											<div id="articleFeaturedVideoPlayer"{% if article.associatedMedia.featuredVideo.contentUrl == null %} style="display:none;"{% endif %}>
+												<div class="featuredVideoContainer" style="position: relative;">
+													<div style="position: absolute; top: 0; right: 0; z-index: 999999;">
+														<a id="featuredVideoReset" href="#"><i class="fa fa-times fa-fw"></i></a>
+													</div>
+													<div class="embed-responsive embed-responsive-16by9 player-container" id="player-container">
+														<video id="video-preview" class="video-js vjs-default-skin vjs-fluid vjs-16-9 vjs-big-play-centered" width="640" height="264">
+														</video>
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="addVideoDescription">Descriere</label>
+													<input type="text" name="featured_video_descriptionText" class="form-control" id="addVideoDescription" placeholder="Descrierea pozei" value="">
+												</div>
+												<div class="form-group">
+													<label for="addVideoCopyright">Copyright</label>
+													<input type="text" name="featured_video_copyrightHolder" class="form-control" id="addVideoCopyright" placeholder="Copyright" value="">
+												</div>
+											</div>
+											<div id="articleFeaturedVideo" class="well" style="text-align: center;{% if article.associatedMedia.featuredVideo.href != null %} display:none;{% endif %}">
+												<h4>Trageți și aruncați fișiere aici</h4>
+												<label class="btn btn-default btn-file">
+	    											<i class="fa fa-folder-open fa-fw"></i> Browse... <input type="file" name="featuredVideo" style="display: none;">
+												</label>
+											</div>
+											<div id="articleFeaturedVideofromURL">
+												<h3 class="centerword-line">
+													<span class="centerword-text">sau</span>
+												</h3>
+												<div class="input-group">
+											      <input type="text" name="featuredVideofromUrl" id="featuredVideofromUrl" class="form-control" placeholder="Youtube URL">
+											      <span class="input-group-btn">
+											        <button class="btn btn-default" id="previewVideofromURL" type="button"><i class="fa fa-youtube-play fa-fw"></i> Previzualizează</button>
+											      </span>
+											    </div>
+											</div>
+										</div>
+									</div>
+									<!-- /.tab-pane -->
+								</div>
+								<!-- /.tab-content -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<input type="hidden" id="featuredImageId" name="featuredImageId" value="{{article.associatedMedia.featuredImage.id}}">
+			<input type="hidden" id="featuredVideoId" name="featuredVideoId" value="{{article.associatedMedia.featuredVideo.id}}">
+		</div>
+{% endblock %}
+
+{% block footer_js %}
+
+
+{{ assets({files: [
+	'@public/js/jquery.min.js',
+	'@public/js/bootstrap.min.js',    
+	'@public/js/video.min.js',
+	'@public/js/Youtube.min.js',
+	'@public/js/froala_editor.pkgd.min.js',
+	'@public/js/select2.full.min.js',
+	'@public/js/moment-with-locales.min.js',
+	'@public/js/moment-timezone-with-data.min.js',
+	'@public/js/bootstrap-datepicker.min.js',
+	'@public/js/bootstrap-datepicker.ro.min.js',
+	'@public/js/bootstrap-timepicker.js',
+	'@public/js/jquery.dm-uploader.min.js',
+	'@public/js/ungheni.min.js',
+    ], name: 'app-article-add.js'})
+}}
+
+{% endblock %}
+
+{% block prebody_js %}
+<script type='text/javascript'>
+	jQuery(document).ready(function($) {
+
+		var alreadySaved = false;
+
+		// custom functions
+		function validateYouTubeUrl( url )
+		{
+		    if (url != undefined || url != '') {
+		        var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=|\?vi=)([^#\&\?]*).*/;
+		        var match = url.match(regExp);
+		        if (match && match[2].length == 11) {
+		            return true;
+		        }
+		        else {
+		            return false;
+		        }
+		    }
+		}
+
+		function YouTubeGetID(url)
+		{
+			var ID = '';
+			url = url.replace(/(>|<)/gi,'').split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+			if(url[2] !== undefined) {
+				ID = url[2].split(/[^0-9a-z_\-]/i);
+				ID = ID[0];
+			} else {
+				ID = url;
+			}
+		    return ID;
+		}
+		// ./end custom functions
+
+		if ("{{article.status}}" == "public") {
+			jQuery('#unpublishArticle').show();
+		} else {
+			jQuery('#publishArticle').show();
+			jQuery('#scheduleArticle').show();
+		}
+
+		if("{{article.associatedMedia.featuredVideo.id}}" !== null && "{{article.associatedMedia.featuredVideo.id}}" !== '') {
+			if ("{{article.associatedMedia.featuredVideo.encodingFormat}}" == "video/youtube") {
+				videojs("video-preview", {
+					"controls": true,
+					"autoplay": false,
+					"preload": "auto",
+					"techOrder": [
+						"youtube"
+					],
+					"sources": [
+						{ 
+							"type": "video/youtube",
+							"src": "{{article.associatedMedia.featuredVideo.contentUrl}}"
+						}
+					],
+					"youtube": {
+						"iv_load_policy": 1,
+						"hl": "ro",
+						"enablejsapi": 1,
+						"modestbranding": 1,
+						"rel": 0,
+						"customVars": {
+							"wmode": "transparent"
+						}
+					}
+				}, function(){
+					jQuery('#addVideoDescription').val("{{article.associatedMedia.featuredVideo.description}}");
+					jQuery('#addVideoCopyright').val("{{article.associatedMedia.featuredVideo.copyrightHolder.value}}");
+				});
+			}
+			if ("{{article.associatedMedia.featuredVideo.encodingFormat}}" == "video/mp4") {
+				videojs("video-preview", {
+					"controls": true,
+					"autoplay": false,
+					"preload": "auto",
+					"techOrder": [
+						"html5"
+					],
+					"sources": [
+						{ 
+							"type": "video/mp4",
+							"src": "{{article.associatedMedia.featuredVideo.contentUrl}}"
+						}
+					]
+				}, function(){
+	  				jQuery('#addVideoDescription').val("{{article.associatedMedia.featuredVideo.description}}");
+					jQuery('#addVideoCopyright').val("{{article.associatedMedia.featuredVideo.copyrightHolder.value}}");
+				});
+			}
+		}
+
+		$.LoadingOverlaySetup({
+			textClass: "overlay-message"
+		});
+
+		jQuery('#article-sidebar').theiaStickySidebar({
+			additionalMarginTop: 65
+    	});
+
+    	jQuery('#article-companion-sidebar').theiaStickySidebar({
+			additionalMarginTop: 15
+    	});
+
+    	jQuery('textarea#addArticleAbstract').froalaEditor({
+    		toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'insertLink', 'specialCharacters', '|', 'selectAll', 'clearFormatting', 'html', '|', 'undo', 'redo']
+    	});
+    	jQuery('textarea#addArticleBody').froalaEditor();
+
+    	dpd.newssections.get({inLanguage: "{{language}}"}, function(res) {
+    		var categories = [];
+    		jQuery.each(res, function(i, val) {
+    			if (val.id === "{{article.articleSection}}") {
+    				var isSelected = true;
+    			} else {
+    				var isSelected = false;
+    			}
+				categories.push({
+					"id" : val.id,
+					"text" : val.name,
+					"selected": isSelected
+				});
+    		});
+    		jQuery('#articleSection').select2({
+				data: categories
+			});
+    	});
+
+    	jQuery('#articleCreatedDate').datepicker({
+			autoclose: true,
+			language: "ro",
+			todayHighlight: true,
+			todayBtn: "linked",
+			format: "yyyy-mm-dd"
+		});
+
+		jQuery('#articleCreatedTime').timepicker({
+			showInputs: false,
+			showMeridian: false,
+			orientation: { x: 'right', y: 'top'},
+    	});
+
+    	jQuery('#articleFeaturedImage').dmUploader({
+			url: '{{ base_url() }}/ro/upload/media',
+			multiple: false,
+			allowedTypes: 'image/*',
+            extFilter: ['jpg','jpeg','png','gif'],
+            onInit: function(){
+				//console.log('Featured Image Uploader Plugin initialized');
+            },
+            onNewFile: function(id, file){
+				$('#featured_media_container').LoadingOverlay("show", {
+					image       : "",
+					fontawesome : "fa fa-cog fa-spin",
+					text: "Imaginea se încarcă..."
+				});
+            },
+            onUploadProgress: function(id, percent){
+				// console.log(this, percent);
+            },
+            onUploadSuccess: function(id, data){
+				var response = jQuery.parseJSON(data);
+				jQuery('#articleFeaturedImageThumbUrl').attr('src',response.contentUrl);
+				jQuery('#articleFeaturedImage, #articleFeaturedImagefromURL').hide();
+				jQuery('#articleFeaturedImageThumb').show();
+				jQuery('#featuredImageId').val(response.id);
+				$('#featured_media_container').LoadingOverlay("hide", true);
+            },
+		});
+
+		jQuery("#uploadImagefromURL").click(function(e){
+			e.preventDefault();
+			$('#featured_media_container').LoadingOverlay("show", {
+				image       : "",
+				fontawesome : "fa fa-cog fa-spin",
+				text: "Imaginea se încarcă..."
+			});
+			var uploadableURL = jQuery("#featuredImagefromUrl").val();
+			//console.log(uploadableURL);
+			$.ajax({
+				method: "POST",
+				url: "{{ base_url() }}/ro/upload/media",
+				data: { imageurl: uploadableURL }
+            })
+			.done(function( msg ) {
+				var response = jQuery.parseJSON(msg);
+              	jQuery('#articleFeaturedImageThumbUrl').attr('src',response.contentUrl);
+				jQuery('#articleFeaturedImage, #articleFeaturedImagefromURL').hide();
+				jQuery('#articleFeaturedImageThumb').show();
+				jQuery('#featuredImageId').val(response.id);
+				$('#featured_media_container').LoadingOverlay("hide", true);
+              });
+		});
+
+		// initiate article featured video uploader
+		jQuery('#articleFeaturedVideo').dmUploader({
+			url: '{{ base_url() }}/ro/upload/media',
+			multiple: false,
+			allowedTypes: 'video/*',
+            extFilter: ['mp4'],
+            onInit: function(){
+				//console.log('Upload Video Plugin initialized');
+            },
+            onNewFile: function(id, file){
+				$('#featured_media_container').LoadingOverlay("show", {
+					image       : "",
+					fontawesome : "fa fa-cog fa-spin",
+					text: "Video se încarcă..."
+				});
+            },
+            onUploadProgress: function(id, percent){
+				//console.log(this, percent);
+            },
+            onUploadSuccess: function(id, data){
+				var response = jQuery.parseJSON(data);
+				videojs("video-preview", {
+					"controls": true,
+					"autoplay": false,
+					"preload": "auto",
+					"techOrder": [
+						"html5"
+					],
+					"sources": [
+						{ 
+							"type": "video/mp4",
+							"src": response.contentUrl
+						}
+					]
+				}, function(){
+	  				jQuery('#articleFeaturedVideo, #articleFeaturedVideofromURL').hide();
+					jQuery('#articleFeaturedVideoPlayer').show();
+					jQuery('#featuredVideoId').val(response.id);
+				});
+              
+				$('#featured_media_container').LoadingOverlay("hide", true);
+            },
+		});
+
+		// initiate article featured video from YouTube url
+		jQuery("#previewVideofromURL").click(function(e){
+			e.preventDefault();
+			var youtube_url = jQuery('#featuredVideofromUrl').val();
+			if (validateYouTubeUrl(youtube_url) !== false) {
+				videojs("video-preview", {
+					"controls": true,
+					"autoplay": false,
+					"preload": "auto",
+					"techOrder": [
+						"youtube"
+					],
+					"sources": [
+						{ 
+							"type": "video/youtube",
+							"src": jQuery('#featuredVideofromUrl').val()
+						}
+					],
+					"youtube": {
+						"iv_load_policy": 1,
+						"hl": "ro",
+						"enablejsapi": 1,
+						"modestbranding": 1,
+						"rel": 0,
+						"customVars": {
+							"wmode": "transparent"
+						}
+					}
+				}, function(){
+					$.getJSON( "https://www.googleapis.com/youtube/v3/videos?id=" + YouTubeGetID(youtube_url) + "&key=AIzaSyC07aj6KO7dYQ67WT1JWx7vWBsTQgAvMXg&part=snippet,contentDetails,statistics,status", function( data ) {
+						var youtube_info = data.items[0];
+						//console.log(youtube_info);
+						jQuery('#addVideoDescription').val(youtube_info.snippet.title);
+						jQuery('#addVideoCopyright').val(youtube_info.snippet.channelTitle + ' / YouTube');
+					});
+					jQuery('#articleFeaturedVideo, #articleFeaturedVideofromURL').hide();
+	  				jQuery('#featuredVideoId').val(youtube_url);
+		            jQuery('#articleFeaturedVideoPlayer').show();
+				});
+    		} else {
+    			//console.log('this is not youtube')
+    		}
+		});
+
+		// reset featured image
+		jQuery("#featuredImageReset").click(function(e){
+			e.preventDefault();
+  			jQuery('#featuredImageId').val('');
+  			jQuery('#articleFeaturedImageThumbUrl').attr('src','');
+  			jQuery('#articleFeaturedImageThumb').hide();
+  			jQuery('#articleFeaturedImage, #articleFeaturedImagefromURL').show();
+		});
+
+		// reset featured video
+		jQuery("#featuredVideoReset").click(function(e){
+			e.preventDefault();
+			jQuery('#featuredVideoId').val('');
+  			videojs("video-preview").dispose();
+  			jQuery('#player-container').html('<video id="video-preview" class="video-js vjs-default-skin vjs-fluid vjs-16-9 vjs-big-play-centered" width="640" height="264">');
+  			jQuery('#articleFeaturedVideoPlayer').hide();
+  			jQuery('#articleFeaturedVideo, #articleFeaturedVideofromURL').show();
+		});
+
+		jQuery("#unpublishArticle").click(function(e){
+			e.preventDefault();
+			$.LoadingOverlay("show", {
+  				image       : "",
+				fontawesome : "fa fa-cog fa-spin",
+				text: "Articolul e scos din publicare..."
+			});
+			dpd.news.put("{{article.id}}", {status: "draft"}, function(result, error) {
+				if (result.status == "public") {
+					jQuery('#unpublishArticle').show();
+					jQuery('#publishArticle').hide();
+					jQuery('#scheduleArticle').hide();
+				} else {
+					jQuery('#unpublishArticle').hide();
+					jQuery('#publishArticle').show();
+					jQuery('#scheduleArticle').show();
+				}
+				$.LoadingOverlay("hide", true);
+			});
+		});
+
+		if(alreadySaved == false) {
+			var originalFeaturedImageId = "{{article.associatedMedia.featuredImage.id}}";
+			var originalFeaturedVideoId = "{{article.associatedMedia.featuredVideo.id}}";
+		}
+
+    	jQuery("#saveArticle, #publishArticle, #scheduleArticle").click(function(e){
+    		var buttonAction = $(this).attr('id');
+    		const now = new Date();
+			var m = moment.tz(now, "Europe/London");
+			var dateModified = m.utc().format();
+
+    		if (buttonAction == "publishArticle") {
+    			var articleStatus = "public";
+    			var datePublished = dateModified;
+    			var firstProcessMsg = "Modificările se salvează... Articolul este publicat...";
+    		} else if (buttonAction == "scheduleArticle") {
+    			var articleStatus = "scheduled";
+    			var dateString = jQuery('#articleCreatedDate').val() + " " + jQuery('#articleCreatedTime').val();
+    			var s = moment.tz(dateString, "Europe/Chisinau");
+				var datePublished = s.utc().format();
+				var firstProcessMsg = "Modificările se salvează... Articolul se programează pentru publicare automată...";
+    		} else {
+    			var articleStatus = "draft";
+    			var datePublished = null;
+    			var firstProcessMsg = "Modificările se salvează...";
+    		}
+			e.preventDefault();
+
+			/*
+			$.LoadingOverlay("show", {
+  				image       : "",
+				fontawesome : "fa fa-cog fa-spin",
+				text: firstProcessMsg
+			});
+			*/
+
+			var articleInfoSave = {
+				id: "{{article.id}}",
+				headline: jQuery('#addArticleHeadline').val(),
+				description: jQuery('textarea#addArticleAbstract').val(),
+				articleBody: jQuery('textarea#addArticleBody').val(),
+				articleSection: jQuery('#articleSection').val(),
+				dateModified: dateModified,
+				datePublished: datePublished,
+				status: articleStatus,
+				version: {
+					$inc: 1
+				}
+			};
+
+			console.log('articleInfoSave');
+			console.log(articleInfoSave);
+
+			var associatedMediaSave = {};
+
+			console.log('associatedMediaSave');
+			console.log(associatedMediaSave);
+
+			// "{{article.associatedMedia.featuredVideo.id}}" !== null && "{{article.associatedMedia.featuredVideo.id}}" !== ''
+
+			if(jQuery('#featuredImageId').val() !== null && jQuery('#featuredImageId').val() !== '') {
+				var	associatedImageSave = {
+					featuredImage: {
+						id: jQuery('#featuredImageId').val()
+					}
+				}
+				var newFeaturedImageId = jQuery('#featuredImageId').val();
+				var associatedMediaSave = $.extend(true, associatedMediaSave, associatedImageSave);
+				//var articleSave = $.extend(true, articleInfoSave, featuredImageSave);
+			} else {
+				var newFeaturedImageId = null;
+			}
+
+			console.log('associatedMediaSave - after IMAGE');
+			console.log(associatedMediaSave);
+
+			if(jQuery('#featuredVideoId').val() !== null && jQuery('#featuredVideoId').val() !== '') {
+				var	associatedVideoSave = {
+					featuredVideo: {
+						id: jQuery('#featuredVideoId').val()
+					}
+				}
+				var newFeaturedVideoId = jQuery('#featuredVideoId').val();
+				var associatedMediaSave = $.extend(true, associatedMediaSave, associatedVideoSave);
+				//articleSave = $.extend(true, articleSave, featuredVideoSave);
+			} else {
+				var newFeaturedVideoId = null;
+			}
+
+			console.log('associatedMediaSave - after VIDEO');
+			console.log(associatedMediaSave);
+
+			var associatedMediaObj = {
+				associatedMedia: associatedMediaSave
+			}
+
+			console.log('associatedMediaObj');
+			console.log(associatedMediaObj);
+
+			if(jQuery('#addImageDescription').val() !== null && jQuery('#addImageDescription').val() !== '') {
+				var imageCaptionObj = {
+					associatedMedia: associatedMediaSave,
+					featuredImageCaption: jQuery('#addImageDescription').val()
+				}
+				associatedMediaObj = $.extend(true, associatedMediaObj, imageCaptionObj);
+			}
+
+			if(jQuery('#addVideoDescription').val() !== null && jQuery('#addVideoDescription').val() !== '') {
+				var videoCaptionObj = {
+					associatedMedia: associatedMediaSave,
+					featuredVideoCaption: jQuery('#addVideoDescription').val()
+				}
+				associatedMediaObj = $.extend(true, associatedMediaObj, videoCaptionObj);
+			}
+
+			var articleSave = $.extend(true, articleInfoSave, associatedMediaObj);
+
+			//console.log(articleSave);
+
+			if (newFeaturedImageId != originalFeaturedImageId && jQuery('#featuredImageId').val() !== null) {
+				//console.log('Imaginea e noua');
+				
+				dpd.media.get(originalFeaturedImageId, function(result, error) {
+					var associatedItems = $.grep(result.associatedItems, function(e){ 
+						return e.id != "{{article.id}}"; 
+					});
+					dpd.media.put(originalFeaturedImageId, {associatedItems: associatedItems}, function(result, error) {
+						// console.log(result);
+					});
+				});
+			}
+
+			if (newFeaturedVideoId != originalFeaturedVideoId && jQuery('#featuredVideoId').val() !== null) {				
+				//console.log('Video e nou');
+				// scoatem articolul din associatedItems pentru originalFeaturedImageId
+			}
+
+			console.log('articleSave inainte de PUT');
+			console.log(articleSave);
+			var articleUpdate = articleSave;
+			dpd.news.put("{{article.id}}", articleUpdate, function(result, error) {
+				dpd.news.get("{{article.id}}", function(result, error) {
+					//console.log(result);
+					originalFeaturedImageId = result.associatedMedia.featuredImage.id;
+					originalFeaturedVideoId = result.associatedMedia.featuredVideo.id;
+					var alreadySaved = true;
+				});
+			});
+
+        });
+	});
+</script>
+{% endblock %}

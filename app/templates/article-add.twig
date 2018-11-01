@@ -1,0 +1,501 @@
+{% extends "base.twig" %}
+
+{% block header_css %}
+
+{{ assets({files: [
+    '@public/css/bootstrap.min.css',
+    '@public/css/video-js.min.css',
+    '@public/css/font-awesome.min.css',
+    '@public/css/ionicons.min.css',
+    '@public/css/froala_editor.pkgd.min.css',
+    '@public/css/froala_style.min.css',
+    '@public/css/select2.min.css',
+    '@public/css/bootstrap-datepicker3.min.css',
+    '@public/css/timepicker.min.css',
+    '@public/css/jquery.dm-uploader.min.css',
+    '@public/css/ungheni.min.css',
+    '@public/css/skins/skin-blue.min.css',
+    ], name: 'app-article-add.css'})
+}}
+
+{% endblock %}
+
+{% block content_main %}
+		<div class="row">
+			<form id="form_add_article" role="form" action="{{ base_url() }}/ro/add/news/" method="POST">
+				<div class="col-md-8">
+					<div class="box">
+						<div class="box-header with-border">
+							<h3 class="box-title">Adaugă articol</h3>
+							
+							<div class="box-tools pull-right">
+								<div class="btn-group" role="group" aria-label="...">
+								  <button type="submit" class="btn btn-default btn-sm" name="saveArticle" value="saveArticle" id="saveArticle"><i class="fa fa-floppy-o fa-fw"></i>{% if not isMobile %} Salvează{% endif %}</button>
+								  <button type="submit" class="btn btn-default btn-sm" name="saveArticle" value="publishArticle" id="publishArticle"><i class="fa fa-globe fa-fw"></i>{% if not isMobile %} Publică{% endif %}</button>
+								  <button type="submit" class="btn btn-default btn-sm" name="saveArticle" value="scheduleArticle" id="scheduleArticle"><i class="fa fa-calendar-check-o fa-fw"></i>{% if not isMobile %} Programează{% endif %}</button>
+								  <button type="reset" class="btn btn-default btn-sm" id="cancelArticle"><i class="fa fa-times-circle"></i>{% if not isMobile %} Închide{% endif %}</button>
+								</div>
+							</div>
+							
+							<!-- /.box-tools -->
+						</div>
+						<!-- /.box-header -->
+						<div class="box-body">
+							<div class="form-group">
+								<label for="addArticleHeadline">Titlu</label>
+								<input type="text" name="headline" class="form-control" id="addArticleHeadline" placeholder="Titlul">
+							</div>
+							<div class="form-group">
+								<label for="addArticleAbstract">Lead</label>
+								<textarea class="form-control" name="descriptionHtml" id="addArticleAbstract" rows="3"></textarea>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="articleSection">Secţiune</label>
+										<select id="articleSection" name="articleSection" class="form-control select2" style="width: 100%;">
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="addArticleBody">Textul ştirii</label>
+								<textarea class="form-control" name="articleBody" id="addArticleBody" rows="3"></textarea>
+							</div>
+						</div>
+						<!-- /.box-body -->
+						<div class="box-footer">
+							Footer
+						</div>
+						<!-- box-footer -->
+					</div>
+					<!-- /.box -->
+				</div>
+				<div class="col-md-4" id="article-sidebar">
+					<div class="theiaStickySidebar">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="box box-default collapsed-box">
+									<div class="box-header with-border">
+										<h3 class="box-title"><i class="fa fa-clock-o fa-fw"></i> Data publicării / Programare</h3>
+
+										<div class="box-tools pull-right">
+											<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+											</button>
+										</div>
+										<!-- /.box-tools -->
+									</div>
+									<!-- /.box-header -->
+									<div class="box-body">
+										<div class="row">
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label for="articleCreatedDate">Data:</label>
+
+													<div class="input-group date">
+														<div class="input-group-addon">
+															<i class="fa fa-calendar"></i>
+														</div>
+														<input type="text" name="articleCreatedDate" class="form-control pull-right" id="articleCreatedDate">
+													</div>
+													<!-- /.input group -->
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="bootstrap-timepicker">
+													<div class="form-group">
+														<label for="articleCreatedTime">Ora:</label>
+
+														<div class="input-group">
+															<input type="text" name="articleCreatedTime" class="form-control timepicker" id="articleCreatedTime">
+															<div class="input-group-addon">
+																<i class="fa fa-clock-o"></i>
+															</div>
+														</div>
+														<!-- /.input group -->
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- /.box-body -->
+								</div>
+								<!-- /.box -->
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="nav-tabs-custom" id="featured_media_container">
+									<ul class="nav nav-tabs pull-right">
+										<li id="#video_tab_name"><a href="#tab_featured_video" data-toggle="tab"><i class="fa fa-video-camera fa-fw"></i> Video</a></li>
+										<li class="active"><a href="#tab_featured_image" data-toggle="tab"><i class="fa fa-camera fa-fw"></i> Imagine</a></li>
+										
+										<li class="pull-left header"><i class="fa fa-picture-o fa-fw"></i> Featured Media</li>
+									</ul>
+									<div class="tab-content">
+										<div class="tab-pane active" id="tab_featured_image">
+											<div id="featured_image_content">
+												<div id="articleFeaturedImageThumb" style="display:none;">
+													<div class="featuredImageContainer" style="position: relative;">
+														<div style="position: absolute; top: 0; right: 0;">
+															<a id="featuredImageReset" href="#"><i class="fa fa-times fa-fw"></i></a>
+														</div>
+														<img id="articleFeaturedImageThumbUrl" src="" class="img-responsive">
+													</div>
+													<div class="form-group">
+														<label for="addImageDescription">Descriere</label>
+														<input type="text" name="featured_image_descriptionText" class="form-control" id="addImageDescription" placeholder="Descrierea pozei" value="">
+													</div>
+													<div class="form-group">
+														<label for="addImageCopyright">Copyright</label>
+														<input type="text" name="featured_image_copyrightHolder" class="form-control" id="addImageCopyright" placeholder="Copyright" value="">
+													</div>
+												</div>
+												<div id="articleFeaturedImage" class="well" style="text-align: center;">
+													<h4>Trageți și aruncați fișiere aici</h4>
+													<label class="btn btn-default btn-file">
+		    											<i class="fa fa-folder-open fa-fw"></i> Browse... <input type="file" name="featuredImage" style="display: none;">
+													</label>
+												</div>
+												<div id="articleFeaturedImagefromURL">
+													<h3 class="centerword-line">
+														<span class="centerword-text">sau</span>
+													</h3>
+													<div class="input-group">
+												      <input type="text" name="featuredImagefromUrl" id="featuredImagefromUrl" class="form-control" placeholder="Adresa URL a imaginii">
+												      <span class="input-group-btn">
+												        <button class="btn btn-default" id="uploadImagefromURL" type="button"><i class="fa fa-upload fa-fw"></i> Încarcă</button>
+												      </span>
+												    </div>
+												</div>
+											</div>
+										</div>
+										<!-- /.tab-pane -->
+										<div class="tab-pane" id="tab_featured_video">
+											<div id="featured_video_content">
+												<div id="articleFeaturedVideoPlayer" style="display:none;">
+													<div class="featuredVideoContainer" style="position: relative;">
+														<div style="position: absolute; top: 0; right: 0; z-index: 999999;">
+															<a id="featuredVideoReset" href="#"><i class="fa fa-times fa-fw"></i></a>
+														</div>
+														<div class="embed-responsive embed-responsive-16by9 player-container" id="player-container">
+															<video id="video-preview" class="video-js vjs-default-skin vjs-fluid vjs-16-9 vjs-big-play-centered" width="640" height="264">
+															</video>
+														</div>
+													</div>
+													<div class="form-group">
+														<label for="addVideoDescription">Descriere</label>
+														<input type="text" name="featured_video_descriptionText" class="form-control" id="addVideoDescription" placeholder="Descrierea pozei" value="">
+													</div>
+													<div class="form-group">
+														<label for="addVideoCopyright">Copyright</label>
+														<input type="text" name="featured_video_copyrightHolder" class="form-control" id="addVideoCopyright" placeholder="Copyright" value="">
+													</div>
+												</div>
+												<div id="articleFeaturedVideo" class="well" style="text-align: center;">
+													<h4>Trageți și aruncați fișiere aici</h4>
+													<label class="btn btn-default btn-file">
+		    											<i class="fa fa-folder-open fa-fw"></i> Browse... <input type="file" name="featuredVideo" style="display: none;">
+													</label>
+												</div>
+												<div id="articleFeaturedVideofromURL">
+													<h3 class="centerword-line">
+														<span class="centerword-text">sau</span>
+													</h3>
+													<div class="input-group">
+												      <input type="text" name="featuredVideofromUrl" id="featuredVideofromUrl" class="form-control" placeholder="Youtube URL">
+												      <span class="input-group-btn">
+												        <button class="btn btn-default" id="previewVideofromURL" type="button"><i class="fa fa-youtube-play fa-fw"></i> Previzualizează</button>
+												      </span>
+												    </div>
+												</div>
+											</div>
+										</div>
+										<!-- /.tab-pane -->
+									</div>
+									<!-- /.tab-content -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<input type="hidden" id="featuredImageId" name="featuredImageId" value="">
+				<input type="hidden" id="featuredVideoId" name="featuredVideoId" value="">
+			</form>
+		</div>
+{% endblock %}
+
+{% block footer_js %}
+
+{{ assets({files: [
+    '@public/js/jquery.min.js',
+    '@public/js/bootstrap.min.js',    
+    '@public/js/video.min.js',
+    '@public/js/Youtube.min.js',
+    '@public/js/froala_editor.pkgd.min.js',
+    '@public/js/select2.full.min.js',
+    '@public/js/moment-with-locales.min.js',
+    '@public/js/moment-timezone-with-data.min.js',
+    '@public/js/bootstrap-datepicker.min.js',
+    '@public/js/bootstrap-datepicker.ro.min.js',
+    '@public/js/bootstrap-timepicker.js',
+    '@public/js/jquery.dm-uploader.min.js',
+    '@public/js/ungheni.min.js',
+    ], name: 'app-article-add.js'})
+}}
+
+{% endblock %}
+
+{% block prebody_js %}
+<script type='text/javascript'>
+	jQuery(document).ready(function($) {
+
+		// custom functions
+		function validateYouTubeUrl( url )
+		{
+		    if (url != undefined || url != '') {
+		        var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=|\?vi=)([^#\&\?]*).*/;
+		        var match = url.match(regExp);
+		        if (match && match[2].length == 11) {
+		            return true;
+		        }
+		        else {
+		            return false;
+		        }
+		    }
+		}
+
+		function YouTubeGetID(url)
+		{
+			var ID = '';
+			url = url.replace(/(>|<)/gi,'').split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+			if(url[2] !== undefined) {
+				ID = url[2].split(/[^0-9a-z_\-]/i);
+				ID = ID[0];
+			} else {
+				ID = url;
+			}
+		    return ID;
+		}
+		// ./end custom functions
+
+		// set class for loadyng overlay text
+		$.LoadingOverlaySetup({
+			textClass: "overlay-message"
+		});
+
+		// set tpo margin for article sticky sidebar
+		jQuery('#article-sidebar').theiaStickySidebar({
+			additionalMarginTop: 65
+    	});
+
+		// set tpo margin for article companion sticky sidebar
+    	jQuery('#article-companion-sidebar').theiaStickySidebar({
+			additionalMarginTop: 15
+    	});
+
+    	// initiate article abstract/lead editor
+    	jQuery('textarea#addArticleAbstract').froalaEditor({
+    		toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'insertLink', 'specialCharacters', '|', 'selectAll', 'clearFormatting', 'html', '|', 'undo', 'redo']
+    	});
+    	jQuery('textarea#addArticleBody').froalaEditor();
+
+    	// initiate article abstract/lead editor
+    	dpd.newssections.get({inLanguage: "{{language}}"}, function(res) {
+    		var categories = [];
+    		jQuery.each(res, function(i, val) {
+				categories.push({
+					"id" : val.id,
+					"text" : val.name,
+				});
+    		});
+    		jQuery('#articleSection').select2({
+				data: categories
+			});
+    	});
+
+    	// initiate article date picker
+    	jQuery('#articleCreatedDate').datepicker({
+			autoclose: true,
+			language: "ro",
+			todayHighlight: true,
+			todayBtn: "linked"
+		});
+
+    	// initiate article time picker
+		jQuery('#articleCreatedTime').timepicker({
+			showInputs: false,
+			showMeridian: false,
+			orientation: { x: 'right', y: 'top'},
+    	});
+
+		// initiate article featured image uploader
+    	jQuery('#articleFeaturedImage').dmUploader({
+			url: '{{ base_url() }}/ro/upload/media',
+			multiple: false,
+			allowedTypes: 'image/*',
+            extFilter: ['jpg','jpeg','png','gif'],
+            onInit: function(){
+				//console.log('Upload Image Plugin initialized');
+            },
+            onNewFile: function(id, file){
+				$('#featured_media_container').LoadingOverlay("show", {
+					image       : "",
+					fontawesome : "fa fa-cog fa-spin",
+					text: "Imaginea se încarcă..."
+				});
+            },
+            onUploadProgress: function(id, percent){
+				//console.log(this, percent);
+            },
+            onUploadSuccess: function(id, data){
+				var response = jQuery.parseJSON(data);
+				jQuery('#articleFeaturedImageThumbUrl').attr('src',response.contentUrl);
+				jQuery('#articleFeaturedImage, #articleFeaturedImagefromURL').hide();
+				jQuery('#articleFeaturedImageThumb').show();
+				jQuery('#featuredImageId').val(response.id);
+				$('#featured_media_container').LoadingOverlay("hide", true);
+            },
+		});
+
+    	// initiate article featured image upload from url
+		jQuery("#uploadImagefromURL").click(function(e){
+			e.preventDefault();
+			$('#featured_media_container').LoadingOverlay("show", {
+				image       : "",
+				fontawesome : "fa fa-cog fa-spin",
+				text: "Imaginea se încarcă..."
+			});
+			var uploadableURL = jQuery("#featuredImagefromUrl").val();
+			$.ajax({
+				method: "POST",
+				url: "{{ base_url() }}/ro/upload/media",
+				data: { imageurl: uploadableURL }
+            })
+			.done(function( msg ) {
+              	var response = jQuery.parseJSON(msg);
+              	jQuery('#articleFeaturedImageThumbUrl').attr('src',response.contentUrl);
+				jQuery('#articleFeaturedImage, #articleFeaturedImagefromURL').hide();
+				jQuery('#articleFeaturedImageThumb').show();
+				jQuery('#featuredImageId').val(response.id);
+				$('#featured_media_container').LoadingOverlay("hide", true);
+			});
+		});
+
+		// initiate article featured video uploader
+		jQuery('#articleFeaturedVideo').dmUploader({
+			url: '{{ base_url() }}/ro/upload/media',
+			multiple: false,
+			allowedTypes: 'video/*',
+            extFilter: ['mp4'],
+            onInit: function(){
+				//console.log('Upload Video Plugin initialized');
+            },
+            onNewFile: function(id, file){
+				$('#featured_media_container').LoadingOverlay("show", {
+					image       : "",
+					fontawesome : "fa fa-cog fa-spin",
+					text: "Video se încarcă..."
+				});
+            },
+            onUploadProgress: function(id, percent){
+				//console.log(this, percent);
+            },
+            onUploadSuccess: function(id, data){
+				var response = jQuery.parseJSON(data);
+				videojs("video-preview", {
+					"controls": true,
+					"autoplay": false,
+					"preload": "auto",
+					"techOrder": [
+						"html5"
+					],
+					"sources": [
+						{ 
+							"type": "video/mp4",
+							"src": response.contentUrl
+						}
+					]
+				}, function(){
+	  				jQuery('#articleFeaturedVideo, #articleFeaturedVideofromURL').hide();
+					jQuery('#articleFeaturedVideoPlayer').show();
+					jQuery('#featuredVideoId').val(response.id);
+				});
+              
+				$('#featured_media_container').LoadingOverlay("hide", true);
+            },
+		});
+
+		// initiate article featured video from YouTube url
+		jQuery("#previewVideofromURL").click(function(e){
+			e.preventDefault();
+			var youtube_url = jQuery('#featuredVideofromUrl').val();
+			if (validateYouTubeUrl(youtube_url) !== false) {
+				videojs("video-preview", {
+					"controls": true,
+					"autoplay": false,
+					"preload": "auto",
+					"techOrder": [
+						"youtube"
+					],
+					"sources": [
+						{ 
+							"type": "video/youtube",
+							"src": jQuery('#featuredVideofromUrl').val()
+						}
+					],
+					"youtube": {
+						"iv_load_policy": 1,
+						"hl": "ro",
+						"enablejsapi": 1,
+						"modestbranding": 1,
+						"rel": 0,
+						"customVars": {
+							"wmode": "transparent"
+						}
+					}
+				}, function(){
+					$.getJSON( "https://www.googleapis.com/youtube/v3/videos?id=" + YouTubeGetID(youtube_url) + "&key=AIzaSyC07aj6KO7dYQ67WT1JWx7vWBsTQgAvMXg&part=snippet,contentDetails,statistics,status", function( data ) {
+						var youtube_info = data.items[0];
+						jQuery('#addVideoDescription').val(youtube_info.snippet.title);
+						jQuery('#addVideoCopyright').val(youtube_info.snippet.channelTitle + ' / YouTube');
+					});
+	  				jQuery('#articleFeaturedVideo, #articleFeaturedVideofromURL').hide();
+	  				jQuery('#featuredVideoId').val(youtube_url);
+		            jQuery('#articleFeaturedVideoPlayer').show();
+				});
+    		} else {
+    			//console.log('this is not youtube')
+    		}
+		});
+
+		// reset featured image
+		jQuery("#featuredImageReset").click(function(e){
+			e.preventDefault();
+  			jQuery('#featuredImageId').val('');
+  			jQuery('#articleFeaturedImageThumbUrl').attr('src','');
+  			jQuery('#articleFeaturedImageThumb').hide();
+  			jQuery('#articleFeaturedImage, #articleFeaturedImagefromURL').show();
+		});
+
+		// reset featured video
+		jQuery("#featuredVideoReset").click(function(e){
+			e.preventDefault();
+			jQuery('#featuredVideoId').val('');
+  			videojs("video-preview").dispose();
+  			jQuery('#player-container').html('<video id="video-preview" class="video-js vjs-default-skin vjs-fluid vjs-16-9 vjs-big-play-centered" width="640" height="264">');
+  			jQuery('#articleFeaturedVideoPlayer').hide();
+  			jQuery('#articleFeaturedVideo, #articleFeaturedVideofromURL').show();
+		});
+
+		// post form data
+		jQuery('#form_add_article').submit(function() {
+  			$.LoadingOverlay("show", {
+  				image       : "",
+				fontawesome : "fa fa-cog fa-spin",
+				text: "Articolul se salvează... Sunt create variantele de dimensiuni pentru imaginea principală..."				
+			});
+		});
+	});
+</script>
+{% endblock %}

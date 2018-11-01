@@ -1,0 +1,229 @@
+{
+	"type": "Collection",
+	"properties": {
+		"name": {
+			"name": "name",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "name",
+			"order": 0
+		},
+		"description": {
+			"name": "description",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "description",
+			"order": 1
+		},
+		"image": {
+			"name": "image",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "image",
+			"order": 2
+		},
+		"additionalName": {
+			"name": "additionalName",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "additionalName",
+			"order": 3
+		},
+		"address": {
+			"name": "address",
+			"type": "object",
+			"typeLabel": "object",
+			"required": false,
+			"id": "address",
+			"order": 4
+		},
+		"birthDate": {
+			"name": "birthDate",
+			"type": "date",
+			"typeLabel": "date",
+			"required": false,
+			"id": "birthDate",
+			"order": 5
+		},
+		"birthPlace": {
+			"name": "birthPlace",
+			"type": "object",
+			"typeLabel": "object",
+			"required": false,
+			"id": "birthPlace",
+			"order": 6
+		},
+		"children": {
+			"name": "children",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "children",
+			"order": 7
+		},
+		"colleague": {
+			"name": "colleague",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "colleague",
+			"order": 8
+		},
+		"deathDate": {
+			"name": "deathDate",
+			"type": "date",
+			"typeLabel": "date",
+			"required": false,
+			"id": "deathDate",
+			"order": 9
+		},
+		"deathPlace": {
+			"name": "deathPlace",
+			"type": "object",
+			"typeLabel": "object",
+			"required": false,
+			"id": "deathPlace",
+			"order": 10
+		},
+		"email": {
+			"name": "email",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "email",
+			"order": 11
+		},
+		"familyName": {
+			"name": "familyName",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "familyName",
+			"order": 12
+		},
+		"faxNumber": {
+			"name": "faxNumber",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "faxNumber",
+			"order": 13
+		},
+		"follows": {
+			"name": "follows",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "follows",
+			"order": 14
+		},
+		"gender": {
+			"name": "gender",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "gender",
+			"order": 15
+		},
+		"givenName": {
+			"name": "givenName",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "givenName",
+			"order": 16
+		},
+		"height": {
+			"name": "height",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "height",
+			"order": 17
+		},
+		"jobTitle": {
+			"name": "jobTitle",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "jobTitle",
+			"order": 18
+		},
+		"knows": {
+			"name": "knows",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "knows",
+			"order": 19
+		},
+		"memberOf": {
+			"name": "memberOf",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "memberOf",
+			"order": 20
+		},
+		"nationality": {
+			"name": "nationality",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "nationality",
+			"order": 21
+		},
+		"parent": {
+			"name": "parent",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "parent",
+			"order": 22
+		},
+		"sibling": {
+			"name": "sibling",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "sibling",
+			"order": 23
+		},
+		"spouse": {
+			"name": "spouse",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "spouse",
+			"order": 24
+		},
+		"telephone": {
+			"name": "telephone",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "telephone",
+			"order": 25
+		},
+		"weight": {
+			"name": "weight",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "weight",
+			"order": 26
+		},
+		"worksFor": {
+			"name": "worksFor",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "worksFor",
+			"order": 27
+		}
+	}
+}

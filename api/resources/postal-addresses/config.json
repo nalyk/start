@@ -1,0 +1,61 @@
+{
+	"type": "Collection",
+	"properties": {
+		"addressCountry": {
+			"name": "addressCountry",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "addressCountry",
+			"order": 0
+		},
+		"addressLocality": {
+			"name": "addressLocality",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "addressLocality",
+			"order": 1
+		},
+		"addressRegion": {
+			"name": "addressRegion",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "addressRegion",
+			"order": 2
+		},
+		"postalCode": {
+			"name": "postalCode",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "postalCode",
+			"order": 3
+		},
+		"addressStreetName": {
+			"name": "addressStreetName",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "addressStreetName",
+			"order": 4
+		},
+		"addressStreetNumber": {
+			"name": "addressStreetNumber",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "addressStreetNumber",
+			"order": 5
+		},
+		"geo": {
+			"name": "geo",
+			"type": "object",
+			"typeLabel": "object",
+			"required": false,
+			"id": "geo",
+			"order": 6
+		}
+	}
+}
