@@ -37,10 +37,10 @@ return [
             'path' => __DIR__ . '/../log/app.log',
         ],
 
-        // Deployd settings
+        // Deployd settings / HOST / PROTOCOL (http or https)
         'deployd' => [
-            'host' => 'api.ungheni.today',
-            'protocol' => 'https',
+            'host' => '',
+            'protocol' => '',
         ],
     ],
 ];

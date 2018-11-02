@@ -1,7 +1,7 @@
 vendor/
 log/*
-cache/*
+cache/assets/*
+cache/twig/*
 node_modules/
-app/templates/node_modules/
-app/templates/bower_components/
+app/templates/node_modules/*
 public/cache/*
