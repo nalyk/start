@@ -4,4 +4,3 @@ cache/assets/*
 cache/twig/*
 node_modules/*
 app/templates/node_modules/*
-public/cache/*
