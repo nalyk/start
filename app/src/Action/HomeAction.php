@@ -12,7 +12,6 @@ final class HomeAction
         $this->view = $view;
         $this->logger = $logger;
         $this->deployd = $deployd;
-        $this->util = new \App\Controller\UtilController();
     }
 
     public function __invoke(\Slim\Http\Request $request, \Slim\Http\Response $response, $args)
