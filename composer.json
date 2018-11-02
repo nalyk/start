@@ -1,14 +1,14 @@
 {
-    "name": "akrabat/slim3-skeleton",
-    "description": "Simple Slim Framework 3 skeleton with Twig & Monolog.",
+    "name": "nalyk/start",
+    "description": "Slim Framework 3 skeleton with Twig & Monolog.",
     "license": "BSD-3-Clause",
     "type": "project",
     "keywords": ["slim-framework", "skeleton"],
     "authors": [
         {
-            "name": "Rob Allen",
-            "email": "rob@akrabat.com",
-            "homepage": "http://akrabat.com"
+            "name": "Ion (Nalyk) Calmîș",
+            "email": "ion.calmis@studiotechno.md",
+            "homepage": "https://nalyk.studiotechno.md"
         }
     ],
     "autoload": {
