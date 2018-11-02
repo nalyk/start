@@ -27,11 +27,10 @@ final class HomeAction
         } else {
             $isMobile = false;
         }
-        $string = null;
         
-        $data = ['activeObject' => 'page', 'activeName' => 'home', 'isMobile' => $isMobile, 'debug' => $string];
+        $data = ['activeObject' => 'page', 'activeName' => 'home', 'isMobile' => $isMobile];
 
-        $this->view->render($response, 'home.twig', $data);
+        $this->view->render($response, 'base.twig', $data);
         return $response;
     }
 }
