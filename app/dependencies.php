@@ -65,18 +65,3 @@ $container[App\Action\HomeAction::class] = function ($c) {
 // -----------------------------------------------------------------------------
 // Controller factories
 // -----------------------------------------------------------------------------
-$container[App\Controller\ArticleController::class] = function ($c) {
-    return new App\Controller\ArticleController($c->get('view'), $c->get('logger'), $c->get(App\Controller\MediaController::class), $c->get('api'));
-};
-
-$container[App\Controller\NewsController::class] = function ($c) {
-    return new App\Controller\NewsController($c->get('view'), $c->get('logger'), $c->get('deployd'));
-};
-
-$container[App\Controller\MediaController::class] = function ($c) {
-    return new App\Controller\MediaController($c->get('view'), $c->get('logger'), $c->get('deployd'));
-};
-
-$container['api'] = function ($c) {
-    return new App\Controller\ApiController($c->get('logger'));
-};
