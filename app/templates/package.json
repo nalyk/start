@@ -1,0 +1,20 @@
+{
+  "name": "Nalyk Starter",
+  "version": "1.0.0",
+  "description": "Slim3 starter template with Twig and Monolog",
+  "main": "Gruntfile.js",
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "jquery-migrate": "^3.0.1"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.3",
+    "grunt-contrib-copy": "^1.0.0",
+    "load-grunt-tasks": "^4.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ion (Nalyk) Calmis",
+  "license": "ISC"
+}
