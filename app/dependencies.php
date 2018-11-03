@@ -65,6 +65,6 @@ $container['deployd'] = function ($c) {
 // Controller factories
 // -----------------------------------------------------------------------------
 
-$container[App\Action\IndexController::class] = function ($c) {
-    return new App\Action\IndexController($c->get('view'), $c->get('logger'), $c->get('deployd'));
+$container[App\Controller\IndexController::class] = function ($c) {
+    return new App\Controller\IndexController($c->get('view'), $c->get('logger'), $c->get('deployd'));
 };
