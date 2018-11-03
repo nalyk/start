@@ -1,7 +1,7 @@
 <?php
 // Routes
 
-$app->get('/[{language:[ro|en|ru]+}[/]]', App\Action\HomeAction::class)
+$app->get('/[{language:[ro|en|ru]+}[/]]', App\Controller\IndexController::class)
     ->setName('homepage_view');
 
 // Catch-all 404

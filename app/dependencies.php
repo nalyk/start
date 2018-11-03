@@ -62,27 +62,9 @@ $container['deployd'] = function ($c) {
 };
 
 // -----------------------------------------------------------------------------
-// Action factories
-// -----------------------------------------------------------------------------
-
-$container[App\Action\HomeAction::class] = function ($c) {
-    return new App\Action\HomeAction($c->get('view'), $c->get('logger'), $c->get('deployd'));
-};
-
-// -----------------------------------------------------------------------------
 // Controller factories
 // -----------------------------------------------------------------------------
 
-// Helper functions
-function array_merge_recursive_distinct(array $array1, array $array2)
-{
-    $merged = $array1;
-    foreach ($array2 as $key => &$value) {
-        if (is_array($value) && isset($merged[$key]) && is_array($merged[$key])) {
-            $merged[$key] = $this->array_merge_recursive_distinct($merged[$key], $value);
-        } else {
-            $merged[$key] = $value;
-        }
-    }
-    return $merged;
-}
+$container[App\Action\IndexController::class] = function ($c) {
+    return new App\Action\IndexController($c->get('view'), $c->get('logger'), $c->get('deployd'));
+};

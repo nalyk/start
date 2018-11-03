@@ -1,7 +1,7 @@
 <?php
-namespace App\Action;
+namespace App\Controller;
 
-final class HomeAction
+final class IndexController
 {
     private $view;
     private $logger;
