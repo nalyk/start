@@ -24,6 +24,9 @@ $container['view'] = function ($c) {
     $view->addExtension(new Twig_Extension_Debug());
     $view->addExtension(new \Umpirsky\Twig\Extension\PhpFunctionExtension());
     $view->addExtension(new \Odan\Twig\TwigAssetsExtension($view->getEnvironment(), $settings['assets']));
+    $view->addExtension(new \PurpleBooth\HtmlStripperExtension());
+    $view->addExtension(new \Aaronadal\TwigListLoop\Twig\TwigExtension());
+    $view->addExtension(new \olivers\Twig\Extension\AvatarExtension());
 
     return $view;
 };

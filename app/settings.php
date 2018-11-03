@@ -23,12 +23,12 @@ return [
             // Public assets cache directory
             'path' => __DIR__ . '/../public/cache',
             // Cache settings
-            'cache_enabled' => false,
+            'cache_enabled' => true,
             'cache_path' => __DIR__ . '/../cache',
             'cache_name' => 'assets',
-            'cache_lifetime' => 0,
+            'cache_lifetime' => 3600,
             // Enable JavaScript and CSS compression
-            'minify' => 0
+            'minify' => 1
         ],
 
         // monolog settings
