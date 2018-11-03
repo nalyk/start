@@ -3,5 +3,5 @@ log/*
 cache/assets/*
 cache/twig/*
 node_modules/*
-app/templates/node_modules/*
+app/themes/default/node_modules/*
 public/cache/*
