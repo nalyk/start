@@ -38,5 +38,8 @@
         "purplebooth/twig-htmlstrip": "1.0.0",
         "aaronadal/twig-list-loop": "^1.0",
         "olivers/twig-avatar-extension": "^1.0"
+    },
+    "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.2"
     }
 }
