@@ -10,6 +10,10 @@ $container = $app->getContainer();
 // Twig
 $container['view'] = function ($c) {
     $settings = $c->get('settings');
+
+    $theme = require __DIR__ . '/themes/'.$settings['theme'].'/settings.php';
+    $settings['view'] = array_merge($settings['view'], $theme);
+
     $view = new Slim\Views\Twig($settings['view']['template_path'], $settings['view']['twig']);
     $view->getLoader()->addPath($settings['view']['twig']['paths']['public'], 'public');
 
@@ -68,3 +72,17 @@ $container[App\Action\HomeAction::class] = function ($c) {
 // -----------------------------------------------------------------------------
 // Controller factories
 // -----------------------------------------------------------------------------
+
+// Helper functions
+function array_merge_recursive_distinct(array $array1, array $array2)
+{
+    $merged = $array1;
+    foreach ($array2 as $key => &$value) {
+        if (is_array($value) && isset($merged[$key]) && is_array($merged[$key])) {
+            $merged[$key] = $this->array_merge_recursive_distinct($merged[$key], $value);
+        } else {
+            $merged[$key] = $value;
+        }
+    }
+    return $merged;
+}

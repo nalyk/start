@@ -42,5 +42,8 @@ return [
             'host' => '',
             'protocol' => '',
         ],
+
+        // theme settings
+        'theme' => 'default',
     ],
 ];
