@@ -35,6 +35,33 @@ $container['view'] = function ($c) {
     return $view;
 };
 
+$container['adminview'] = function ($c) {
+    $settings = $c->get('settings');
+
+    $theme = require __DIR__ . '/themes/admin/settings.php';
+    $settings['view'] = array_merge($settings['view'], $theme);
+
+    $adminview = new Slim\Views\Twig($settings['view']['template_path'], $settings['view']['twig']);
+    $adminview->getLoader()->addPath($settings['view']['twig']['paths']['public'], 'public');
+
+    // Add extensions
+    $adminview->addExtension(new Slim\Views\TwigExtension($c->get('router'), $c->get('request')->getUri()));
+    $adminview->addExtension(new Cocur\Slugify\Bridge\Twig\SlugifyExtension(Cocur\Slugify\Slugify::create()));
+    $adminview->addExtension(new Twig_Extensions_Extension_Text());
+    $adminview->addExtension(new Twig_Extensions_Extension_Array());
+    $adminview->addExtension(new Twig_Extensions_Extension_Intl());
+    $adminview->addExtension(new Twig_Extensions_Extension_I18n());
+    $adminview->addExtension(new Snilius\Twig\SortByFieldExtension());
+    $adminview->addExtension(new Twig_Extension_Debug());
+    $adminview->addExtension(new \Umpirsky\Twig\Extension\PhpFunctionExtension());
+    $adminview->addExtension(new \Odan\Twig\TwigAssetsExtension($adminview->getEnvironment(), $settings['assets']));
+    $adminview->addExtension(new \PurpleBooth\HtmlStripperExtension());
+    $adminview->addExtension(new \Aaronadal\TwigListLoop\Twig\TwigExtension());
+    $adminview->addExtension(new \olivers\Twig\Extension\AvatarExtension());
+
+    return $adminview;
+};
+
 // Flash messages
 $container['flash'] = function ($c) {
     return new Slim\Flash\Messages;
@@ -64,6 +91,10 @@ $container['deployd'] = function ($c) {
 // -----------------------------------------------------------------------------
 // Controller factories
 // -----------------------------------------------------------------------------
+
+$container[App\Controller\AdminController::class] = function ($c) {
+    return new App\Controller\AdminController($c->get('adminview'), $c->get('logger'), $c->get('deployd'));
+};
 
 $container[App\Controller\IndexController::class] = function ($c) {
     return new App\Controller\IndexController($c->get('view'), $c->get('logger'), $c->get('deployd'));
