@@ -29,7 +29,7 @@ class AdminController
         
         $data = ['activeObject' => 'page', 'activeName' => 'home', 'isMobile' => $isMobile];
 
-        $this->view->render($response, 'base.twig', $data);
+        $this->view->render($response, 'index.twig', $data);
         return $response;
     }
 
